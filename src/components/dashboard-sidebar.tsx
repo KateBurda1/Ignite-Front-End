@@ -202,10 +202,6 @@ export function DashboardSidebar() {
               <DesktopNavItem key={item.label} item={item} />
             ))}
           </nav>
-          <div className="mt-4 rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1f35] to-[#101426] p-4 text-center text-xs font-semibold uppercase tracking-[0.4em] text-white/70">
-            Market Scan
-            <p className="mt-2 text-[10px] font-normal tracking-[0.3em] text-white/40">Daily refresh</p>
-          </div>
         </div>
       </aside>
     </>
