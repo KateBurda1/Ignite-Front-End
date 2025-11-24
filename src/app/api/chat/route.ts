@@ -1,7 +1,7 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
-import { openai as openaiAdapter } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { convertToCoreMessages, streamText } from "ai";
 
 import { env } from "@/lib/env";
@@ -11,10 +11,9 @@ const openaiClient = env.openAiKey
   : null;
 
 const pineconeIndex =
-  env.pineconeApiKey && env.pineconeEnvironment && env.pineconeIndex
+  env.pineconeApiKey && env.pineconeIndex
     ? new Pinecone({
         apiKey: env.pineconeApiKey,
-        environment: env.pineconeEnvironment,
       }).index(env.pineconeIndex)
     : null;
 
@@ -81,15 +80,17 @@ export async function POST(req: Request) {
 
   const context = await buildContext(userMessage);
 
+  const openai = createOpenAI({
+    apiKey: env.openAiKey,
+  });
+
   const result = await streamText({
-    model: openaiAdapter("gpt-4o-mini", {
-      apiKey: env.openAiKey,
-    }),
+    model: openai("gpt-4o-mini"),
     system: `You are Ignite's growth co-pilot. Ground every answer in the provided context, cite endpoint names, and suggest Supabase or Pinecone actions when relevant.\n\nContext:\n${context}`,
     messages: convertToCoreMessages(messages),
     temperature: 0.2,
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }
 

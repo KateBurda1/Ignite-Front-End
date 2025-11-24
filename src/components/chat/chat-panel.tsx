@@ -1,7 +1,9 @@
 "use client";
 
-import { useChat } from "ai/react";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 import { Loader2, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 import {
   Card,
@@ -18,18 +20,33 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function ChatPanel() {
+  const [input, setInput] = useState("");
   const {
     messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    isLoading,
     error,
-    setInput,
+    sendMessage,
+    status,
   } = useChat({
-    api: "/api/chat",
-    maxDepth: 1,
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+    }),
   });
+
+  const isLoading = status === "submitted" || status === "streaming";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    
+    await sendMessage({
+      text: input,
+    });
+    setInput("");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+  };
 
   return (
     <Card className="border border-border/60">
@@ -69,7 +86,12 @@ export function ChatPanel() {
                   {message.role === "user" ? "You" : "Ignite AI"}
                 </Badge>
                 <pre className="rounded-md bg-background/60 p-3 text-sm leading-relaxed whitespace-pre-wrap">
-                  {message.content}
+                  {message.parts
+                    .filter((part) => part.type === "text")
+                    .map((part) =>
+                      part.type === "text" ? part.text : ""
+                    )
+                    .join("")}
                 </pre>
               </div>
             ))}
