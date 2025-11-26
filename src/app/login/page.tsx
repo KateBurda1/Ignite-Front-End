@@ -137,7 +137,11 @@ export default function LoginPage() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="h-12 w-full rounded-[4px] bg-secondary font-['Inter',sans-serif] text-base font-bold text-secondary-foreground transition-colors hover:bg-secondary/80 disabled:opacity-50"
+                  className={`h-12 w-full rounded-[4px] font-['Inter',sans-serif] text-base font-bold transition-colors disabled:opacity-50 ${
+                    password.length >= 3
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                  }`}
                 >
                   {isLoading ? 'Logging in...' : 'Login'}
                 </Button>
