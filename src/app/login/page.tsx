@@ -10,7 +10,6 @@ import { useTheme } from '@/components/theme-provider';
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { theme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -42,7 +41,7 @@ export default function LoginPage() {
       const redirect = searchParams.get('redirect') || '/dashboard';
       router.push(redirect);
       router.refresh();
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.');
       setIsLoading(false);
     }
@@ -66,6 +65,7 @@ export default function LoginPage() {
 
       {/* Logo */}
       <div className="absolute left-[39px] top-[30px] z-[50] pointer-events-none">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/ignite_logo_dark.svg"
           alt="Ignite"

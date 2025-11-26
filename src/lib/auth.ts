@@ -90,7 +90,7 @@ export async function verifySession(
     }
 
     return sessionPayload;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

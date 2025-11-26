@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
       if (session) {
         return NextResponse.redirect(new URL('/dashboard', request.url));
       }
-    } catch (error) {
+    } catch {
       // If session is invalid, allow access to login page
     }
   }
@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
         response.cookies.delete('session');
         return response;
       }
-    } catch (error) {
+    } catch {
       // Session verification failed
       const loginUrl = new URL('/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
