@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
     darkMode: ["class"],
@@ -71,7 +72,11 @@ export default {
   				orange: 'hsl(var(--dashboard-orange))',
   				pink: 'hsl(var(--dashboard-pink))',
   				red: 'hsl(var(--dashboard-red))'
-  			}
+  			},
+			emerald: {
+				'200': 'rgb(52 211 153)',
+				'300': 'rgb(var(--emerald-300) / <alpha-value>)',
+			}
   		},
   		borderRadius: {
   			'3xl': '0.5rem',
@@ -81,5 +86,5 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

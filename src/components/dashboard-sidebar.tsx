@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import {
   ActivitySquare,
@@ -18,6 +19,7 @@ import {
 import { cn } from "@/lib/utils"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
+import { useTheme } from "@/components/theme-provider"
 
 interface NavItem {
   label: string
@@ -75,8 +77,8 @@ function DesktopNavItem({ item }: { item: NavItem }) {
   }, [hasActiveChild, isActive])
 
   const baseClass =
-    "flex w-full items-center gap-3 rounded-xl border border-transparent px-3 py-2 text-sm font-medium text-white/60 transition-colors"
-  const activeClass = "border-white/30 bg-white/10 text-white"
+    "flex w-full items-center gap-3 rounded-xl border border-transparent px-3 py-2 text-sm font-medium text-muted-foreground transition-colors"
+  const activeClass = "border-border dark:border-white/10 bg-secondary dark:bg-white/5 text-foreground"
 
   if (item.children) {
     return (
@@ -89,7 +91,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
           <item.icon className="h-4 w-4" />
           <span className="flex-1 text-left">{item.label}</span>
           <ChevronDown
-            className={cn("h-4 w-4 text-white/50 transition-transform", isOpen && "rotate-180")}
+            className={cn("h-4 w-4 text-muted-foreground transition-transform", isOpen && "rotate-180")}
           />
         </button>
         {isOpen && (
@@ -99,8 +101,8 @@ function DesktopNavItem({ item }: { item: NavItem }) {
                 key={child.href}
                 href={child.href || "#"}
                 className={cn(
-                  "block rounded-md px-3 py-1 text-sm text-white/50 hover:bg-white/5",
-                  pathname === child.href && "bg-white/10 font-semibold text-white"
+                  "block rounded-md px-3 py-1 text-sm text-muted-foreground hover:bg-secondary dark:hover:bg-white/5",
+                  pathname === child.href && "bg-secondary dark:bg-white/5 font-semibold text-foreground"
                 )}
               >
                 {child.label}
@@ -122,6 +124,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
 
 export function DashboardSidebar() {
   const [isMobileOpen, setIsMobileOpen] = React.useState(false)
+  const { theme } = useTheme()
 
   return (
     <>
@@ -188,14 +191,16 @@ export function DashboardSidebar() {
 
       {/* Desktop/Tablet Sidebar */}
       <aside className="hidden md:fixed md:inset-y-0 md:left-0 md:z-50 md:flex md:w-[11rem] md:flex-col md:bg-transparent">
-        <div className="flex h-full flex-col border border-white/10 bg-gradient-to-b from-[#0f162b]/90 to-[#080b16]/90 px-4 py-6 backdrop-blur-2xl">
-          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-white">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-white text-center text-sm font-semibold uppercase text-slate-900 leading-8">
-                ig
-              </div>
-              <div className="text-base font-semibold tracking-[0.35em]">ignite</div>
-            </div>
+        <div className="flex h-full flex-col border border-border dark:border-white/8 bg-card/80 dark:bg-[#0a0f1e]/95 backdrop-blur-sm px-4 py-6">
+          <div className="flex items-center justify-center rounded-xl border border-border dark:border-white/10 bg-secondary dark:bg-white/5 px-3 py-2">
+            <Image
+              src={theme === "dark" ? "/ignite_logo_dark.svg" : "/ignite_logo_light.svg"}
+              alt="Ignite"
+              width={120}
+              height={40}
+              priority
+              className="h-auto w-full"
+            />
           </div>
           <nav className="mt-6 flex-1 space-y-2 overflow-y-auto">
             {navItems.map((item) => (

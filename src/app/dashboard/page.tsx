@@ -143,7 +143,7 @@ const roasTrend = [
 ]
 
 const glassCard =
-  "rounded-3xl border border-white/8 bg-white/[0.03] p-6 text-white shadow-[0_40px_120px_rgba(6,0,35,0.45)] backdrop-blur-3xl"
+  "rounded-3xl border border-border/50 dark:border-white/8 bg-card/40 dark:bg-white/[0.03] backdrop-blur-sm p-6 shadow-lg"
 
 export default function DashboardPage() {
   const maxDelphi = Math.max(...delphiData.map((item) => item.value))
@@ -153,28 +153,28 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout title="Executive Dashboard">
-      <div className="relative space-y-8 text-white">
+      <div className="relative space-y-8">
         <div className="pointer-events-none absolute inset-0 -z-10 rounded-[32px] bg-[radial-gradient(circle_at_top,_rgba(124,58,237,0.35),_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(6,182,212,0.2),_transparent_60%)]" />
 
         <section className="grid gap-6 xl:grid-cols-12">
-          <div className={cn(glassCard, "xl:col-span-3 bg-gradient-to-b from-[#27144A] via-[#1B1230] to-[#120B1F]")}>
+          <div className={cn(glassCard, "xl:col-span-3 bg-gradient-to-br from-indigo-100/50 via-blue-50/60 to-purple-100/40 dark:from-[#27144A] dark:to-[#120B1F]")}>
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Productivity</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Productivity</p>
                 <h2 className="mt-2 text-5xl font-semibold">82%</h2>
-                <p className="mt-2 text-sm text-white/60">
-                  Efficiency is above average based on <span className="text-white">56 parameters</span>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Efficiency is above average based on <span className="text-foreground font-medium">56 parameters</span>
                 </p>
               </div>
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white/70">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary/50 dark:bg-white/10 text-muted-foreground">
                 <Sparkles className="h-5 w-5" />
               </span>
             </div>
             <div className="mt-8 space-y-3">
               {productivityBands.map((value) => (
                 <div key={value} className="flex items-center gap-3">
-                  <span className="w-10 text-xs uppercase tracking-widest text-white/50">{value}%</span>
-                  <div className="h-3 flex-1 overflow-hidden rounded-full bg-white/5">
+                  <span className="w-10 text-xs uppercase tracking-widest text-muted-foreground">{value}%</span>
+                  <div className="h-3 flex-1 overflow-hidden rounded-full bg-secondary/50 dark:bg-white/5">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#EC4899]"
                       style={{ width: `${value}%` }}
@@ -185,15 +185,15 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className={cn(glassCard, "xl:col-span-5 bg-gradient-to-b from-[#101934] to-[#080C1E]")}>
+          <div className={cn(glassCard, "xl:col-span-5 bg-gradient-to-br from-sky-100/50 via-blue-100/60 to-indigo-100/45 dark:from-[#131E34] dark:to-[#0B1220]")}>
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Total weight</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Total weight</p>
                 <h3 className="mt-1 text-2xl font-semibold">Ignition indicators</h3>
               </div>
               <button
                 type="button"
-                className="rounded-full border border-white/10 p-2 text-white/70 transition hover:text-white"
+                className="rounded-full border border-border dark:border-white/10 p-2 text-muted-foreground transition hover:text-foreground"
               >
                 <MoreHorizontal className="h-5 w-5" />
               </button>
@@ -203,34 +203,39 @@ export default function DashboardPage() {
             </span>
             <div className="mt-8 flex flex-wrap items-center gap-8">
               <div className="relative mx-auto flex h-56 w-56 items-center justify-center">
+                {/* Background ring */}
+                <div className="absolute inset-0 rounded-full bg-muted/30" />
+                {/* Progress ring */}
                 <div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: `conic-gradient(#7C3AED ${(28429 / 46000) * 360}deg, rgba(255,255,255,0.08) 0)`,
+                    background: `conic-gradient(#7C3AED ${(28429 / 46000) * 360}deg, transparent 0)`,
                   }}
                 />
-                <div className="absolute inset-3 rounded-full bg-[#060A18]" />
+                {/* Inner circle */}
+                <div className="absolute inset-3 rounded-full bg-background" />
+                {/* Center content */}
                 <div className="absolute text-center">
                   <div className="text-4xl font-semibold">28,429</div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">KG</p>
-                  <p className="text-xs text-white/50">from 46,000 kg</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">KG</p>
+                  <p className="text-xs text-muted-foreground">from 46,000 kg</p>
                 </div>
               </div>
-              <div className="space-y-4 text-sm text-white/70">
+              <div className="space-y-4 text-sm text-muted-foreground">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/40">Active corridors</p>
-                  <p className="mt-1 text-2xl font-semibold text-white">12 secured routes</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Active corridors</p>
+                  <p className="mt-1 text-2xl font-semibold text-foreground">12 secured routes</p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/40">Transit health</p>
-                  <p className="mt-1 flex items-center gap-2 text-lg text-white">
+                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Transit health</p>
+                  <p className="mt-1 flex items-center gap-2 text-lg text-foreground">
                     96% on schedule
                     <ArrowUpRight className="h-4 w-4 text-emerald-400" />
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/40">Exceptions</p>
-                  <p className="mt-1 flex items-center gap-2 text-lg text-white">
+                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Exceptions</p>
+                  <p className="mt-1 flex items-center gap-2 text-lg text-foreground">
                     4 delays
                     <ArrowDownRight className="h-4 w-4 text-rose-400" />
                   </p>
@@ -239,15 +244,15 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className={cn(glassCard, "xl:col-span-4 bg-gradient-to-b from-[#131E34] to-[#0B1220]")}>
+          <div className={cn(glassCard, "xl:col-span-4 bg-gradient-to-br from-sky-100/50 via-blue-100/60 to-indigo-100/45 dark:from-[#101934] dark:to-[#080C1E]")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Cargo contents</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Cargo contents</p>
                 <h3 className="mt-1 text-2xl font-semibold">Task list</h3>
               </div>
               <button
                 type="button"
-                className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70"
+                className="rounded-full border border-border dark:border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground"
               >
                 VIEW
               </button>
@@ -255,18 +260,18 @@ export default function DashboardPage() {
             <div className="mt-8 space-y-6">
               {cargoContents.map((item) => (
                 <div key={item.label} className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-white">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-2xl">
+                  <div className="flex items-center gap-4 text-foreground">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/50 dark:bg-white/5 text-2xl">
                       {item.icon}
                     </div>
                     <div>
                       <p className="text-base font-medium">{item.label}</p>
-                      <p className="text-sm text-white/60">{item.change}</p>
+                      <p className="text-sm text-muted-foreground">{item.change}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-semibold">{item.share}%</p>
-                    <p className="text-sm text-white/60">{item.weight}</p>
+                    <p className="text-sm text-muted-foreground">{item.weight}</p>
                   </div>
                 </div>
               ))}
@@ -278,24 +283,24 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-4")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Year</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Year</p>
                 <h3 className="text-2xl font-semibold">Delphi</h3>
               </div>
-              <button className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70">
+              <button className="rounded-full border border-border dark:border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground">
                 2024
               </button>
             </div>
-            <div className="mt-6 h-64 border-t border-white/5 pt-6">
+            <div className="mt-6 h-64 border-t border-border dark:border-white/5 pt-6">
               <div className="flex h-full items-end justify-between gap-3">
                 {delphiData.map((item) => (
                   <div key={item.month} className="flex flex-1 flex-col items-center gap-2">
-                    <div className="flex h-full w-full items-end rounded-3xl bg-white/5">
+                    <div className="flex h-full w-full items-end rounded-3xl bg-secondary/50 dark:bg-white/5">
                       <div
                         className="w-full rounded-3xl bg-gradient-to-t from-[#22D3EE] via-[#3B82F6] to-[#8B5CF6]"
                         style={{ height: `${(item.value / maxDelphi) * 100}%` }}
                       />
                     </div>
-                    <span className="text-xs text-white/60">{item.month}</span>
+                    <span className="text-xs text-muted-foreground">{item.month}</span>
                   </div>
                 ))}
               </div>
@@ -305,10 +310,10 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-8 overflow-hidden")}>
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Revenue forecast</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Revenue forecast</p>
                 <h3 className="text-2xl font-semibold">Operating view</h3>
               </div>
-              <button className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-white/80">
+              <button className="inline-flex items-center gap-2 rounded-full border border-border dark:border-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-foreground">
                 <Download className="h-4 w-4" />
                 Export data
               </button>
@@ -316,7 +321,7 @@ export default function DashboardPage() {
             <div className="mt-6 overflow-x-auto">
               <table className="w-full min-w-[640px] text-left text-sm">
                 <thead>
-                  <tr className="text-white/60">
+                  <tr className="text-muted-foreground">
                     <th className="py-3 pr-4 font-medium">Category</th>
                     <th className="py-3 pr-4 font-medium">Q1</th>
                     <th className="py-3 pr-4 font-medium">Q2</th>
@@ -326,13 +331,13 @@ export default function DashboardPage() {
                     <th className="py-3 font-medium">Growth %</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5 text-white">
+                <tbody className="divide-y divide-border text-foreground">
                   {revenueRows.map((row) => (
                     <tr key={row.category} className="text-sm">
                       <td className="py-4 pr-4">
                         <div className="flex items-center gap-3">
                           <span className="font-medium">{row.category}</span>
-                          <span className="rounded-full border border-white/10 px-2 py-0.5 text-xs text-white/60">
+                          <span className="rounded-full border border-border dark:border-white/10 px-2 py-0.5 text-xs text-muted-foreground">
                             {row.status}
                           </span>
                         </div>
@@ -381,22 +386,22 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-4")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Event</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Event</p>
                 <h3 className="text-2xl font-semibold">Event overview</h3>
               </div>
               <span className="text-sm uppercase tracking-[0.3em] text-emerald-300">Active</span>
             </div>
-            <div className="mt-6 grid grid-cols-3 gap-4 rounded-2xl border border-white/5 bg-white/5 p-4 text-center">
+            <div className="mt-6 grid grid-cols-3 gap-4 rounded-2xl border border-border dark:border-white/5 bg-secondary/50 dark:bg-white/5 p-4 text-center">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50">Total Events</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Total Events</p>
                 <p className="mt-2 text-3xl font-semibold">149</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50">Attendance</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Attendance</p>
                 <p className="mt-2 text-3xl font-semibold">3,247</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50">Avg Rating</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Avg Rating</p>
                 <p className="mt-2 text-3xl font-semibold">4.8</p>
               </div>
             </div>
@@ -404,13 +409,13 @@ export default function DashboardPage() {
               <div className="flex h-32 items-end justify-between gap-3">
                 {eventActivity.map((item) => (
                   <div key={item.month} className="flex flex-1 flex-col items-center gap-2">
-                    <div className="w-full rounded-2xl bg-white/5">
+                    <div className="w-full rounded-2xl bg-secondary/50 dark:bg-white/5">
                       <div
                         className="rounded-2xl bg-gradient-to-t from-[#06B6D4] to-[#3B82F6]"
                         style={{ height: `${(item.value / maxEventValue) * 100}%` }}
                       />
                     </div>
-                    <span className="text-xs text-white/50">{item.month}</span>
+                    <span className="text-xs text-muted-foreground">{item.month}</span>
                   </div>
                 ))}
               </div>
@@ -420,10 +425,10 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-4")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">MV Indicators</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">MV Indicators</p>
                 <h3 className="text-2xl font-semibold">Customer voice</h3>
               </div>
-              <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70">
+              <span className="rounded-full border border-border dark:border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground">
                 6 KPIs
               </span>
             </div>
@@ -431,10 +436,10 @@ export default function DashboardPage() {
               {mvIndicators.map((row) => (
                 <div key={row.label}>
                   <div className="flex items-center justify-between text-sm">
-                    <p className="text-white/70">{row.label}</p>
+                    <p className="text-muted-foreground">{row.label}</p>
                     <p className="font-semibold">{row.value}%</p>
                   </div>
-                  <div className="mt-2 h-2 rounded-full bg-white/5">
+                  <div className="mt-2 h-2 rounded-full bg-secondary/50 dark:bg-white/5">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-[#34D399] to-[#10B981]"
                       style={{ width: `${row.value}%` }}
@@ -448,14 +453,14 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-4 overflow-hidden")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Market indicators</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Market indicators</p>
                 <h3 className="text-2xl font-semibold">Segment view</h3>
               </div>
-              <button className="text-xs uppercase tracking-[0.3em] text-white/60">Refocus</button>
+              <button className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Refocus</button>
             </div>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="text-white/50">
+                <thead className="text-muted-foreground">
                   <tr>
                     <th className="py-2 pr-4 font-medium">Segment</th>
                     <th className="py-2 pr-4 font-medium">Q1</th>
@@ -465,7 +470,7 @@ export default function DashboardPage() {
                     <th className="py-2 font-medium">YoY</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5 text-white">
+                <tbody className="divide-y divide-border text-foreground">
                   {marketRows.map((row) => (
                     <tr key={row.segment}>
                       <td className="py-3 pr-4">{row.segment}</td>
@@ -497,10 +502,10 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-4")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Marketing initiatives</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Marketing initiatives</p>
                 <h3 className="text-2xl font-semibold">Budget mix</h3>
               </div>
-              <button className="text-xs uppercase tracking-[0.3em] text-white/60">Adjust</button>
+              <button className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Adjust</button>
             </div>
             <div className="mt-8 flex flex-col gap-8 md:flex-row">
               <div className="relative mx-auto flex h-48 w-48 items-center justify-center">
@@ -531,9 +536,9 @@ export default function DashboardPage() {
                   })()}
                 </svg>
                 <div className="absolute text-center">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">Focus</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Focus</p>
                   <p className="text-3xl font-semibold">Digital</p>
-                  <p className="text-sm text-white/50">35% allocation</p>
+                  <p className="text-sm text-muted-foreground">35% allocation</p>
                 </div>
               </div>
               <div className="space-y-4">
@@ -543,7 +548,7 @@ export default function DashboardPage() {
                       <p>{item.label}</p>
                       <p className="font-semibold">{item.percent}%</p>
                     </div>
-                    <div className="mt-1 h-1.5 rounded-full bg-white/5">
+                    <div className="mt-1 h-1.5 rounded-full bg-secondary/50 dark:bg-white/5">
                       <div
                         className="h-full rounded-full"
                         style={{ width: `${item.percent}%`, backgroundColor: item.color }}
@@ -558,15 +563,15 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-5")}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">Performance metrics</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Performance metrics</p>
                 <h3 className="text-2xl font-semibold">Executive summary</h3>
               </div>
-              <button className="text-xs uppercase tracking-[0.3em] text-white/60">Last 12 months</button>
+              <button className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Last 12 months</button>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-4">
               {performanceStats.map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-white/5 bg-white/5 p-4">
-                  <div className="flex items-center justify-between text-sm text-white/60">
+                <div key={stat.label} className="rounded-2xl border border-border dark:border-white/5 bg-secondary/50 dark:bg-white/5 p-4">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
                     <span>{stat.label}</span>
                     <span>{stat.change}</span>
                   </div>
@@ -613,38 +618,38 @@ export default function DashboardPage() {
           <div className={cn(glassCard, "xl:col-span-3")}>
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">ROAS for MV</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">ROAS for MV</p>
                 <h3 className="text-2xl font-semibold">Return on ad spend</h3>
-                <p className="mt-2 text-sm text-white/60">Average 3.9x</p>
+                <p className="mt-2 text-sm text-muted-foreground">Average 3.9x</p>
               </div>
             </div>
             <div className="mt-6 flex h-48 items-end gap-3">
               {roasTrend.map((point) => (
                 <div key={point.month} className="flex-1">
-                  <div className="flex h-40 items-end rounded-2xl bg-white/5">
+                  <div className="flex h-40 items-end rounded-2xl bg-secondary/50 dark:bg-white/5">
                     <div
                       className="w-full rounded-2xl bg-gradient-to-t from-[#F97316] to-[#FDE68A]"
                       style={{ height: `${(point.value / maxRoas) * 100}%` }}
                     />
                   </div>
-                  <p className="mt-2 text-center text-xs text-white/60">{point.month}</p>
+                  <p className="mt-2 text-center text-xs text-muted-foreground">{point.month}</p>
                 </div>
               ))}
             </div>
             <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
-              <div className="rounded-2xl border border-white/5 p-4">
-                <p className="text-white/50">Best</p>
+              <div className="rounded-2xl border border-border dark:border-white/5 p-4">
+                <p className="text-muted-foreground">Best</p>
                 <p className="mt-2 text-2xl font-semibold">4.5x</p>
               </div>
-              <div className="rounded-2xl border border-white/5 p-4">
-                <p className="text-white/50">Target</p>
+              <div className="rounded-2xl border border-border dark:border-white/5 p-4">
+                <p className="text-muted-foreground">Target</p>
                 <p className="mt-2 text-2xl font-semibold">5.0x</p>
               </div>
             </div>
           </div>
         </section>
 
-        <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-white/5 pt-4 text-xs uppercase tracking-[0.3em] text-white/40">
+        <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-border dark:border-white/5 pt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">
           <span>Ignite executive dashboard — updated hourly</span>
           <span className="inline-flex items-center gap-2">
             status
